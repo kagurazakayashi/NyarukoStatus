@@ -37,7 +37,7 @@ public class startpgm {
         
         readTxtFile(rundir);
         int z = 0;
-        for (;;) {
+        //for (;;) {
             z++;
             System.out.println((new Date())+" - 开始第 "+z+" 回测试");
             urlchk uc = new urlchk();
@@ -75,9 +75,9 @@ public class startpgm {
             String timeAddress = rundir + "time.html";
             writeTxtFile(timeAddress,thtml);
             System.out.println((new Date())+" - 创建时间记录网页完毕。");
-            System.out.println((new Date())+" - 程序休眠（"+sl+"）");
-            Thread.sleep(sl);
-        }
+            //System.out.println((new Date())+" - 程序休眠（"+sl+"）");
+            //Thread.sleep(sl);
+        //}
     }
 
     public void writeTxtFile(String filePath, String txt) {

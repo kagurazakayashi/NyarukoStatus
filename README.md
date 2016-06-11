@@ -1,5 +1,5 @@
 # WebsiteStatusDisplay
-一个Java做的服务器端程序，提供一个供用户访问的网站可访问状况的显示页，可以设置多个网站。
+一个Java做的简易可访问状况网页生成器，提供一个供用户访问的网站可访问状况的显示页，可以设置多个网站。
 
 1. 修改 src/jiankong/startpgm.java 中的 String rundir = " "; 在里面填写txt配置文件和index.html所在文件夹。
 2. 修改 src/jiankong/startpgm.java 中的 int sl= ，在里面填写多长时间扫描一次（整数,毫秒），请勿填写过短的时间。
@@ -11,4 +11,4 @@
 8. 使用 java -jar "<此jar文件路径>" 来启动它。没有显示错误信息的话，status.html 和 time.html 将被创建。
 9. 现在可以输入网址在浏览器中访问了。可以将上一步的命令写到bat或sh里面开机运行。
 
-在以后的版本中我打算去掉需要重新编译的步骤。
+循环代码已经注释掉。
