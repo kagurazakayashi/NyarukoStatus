@@ -23,7 +23,13 @@
         text-align:left;
     }
     .stattbitem {
-        width:10px;
+        width:<?php
+        if (isset($_GET["zoom-w"]) && intval($_GET["zoom-w"]) >= 1 && intval($_GET["zoom-w"]) <= 1024) {
+            echo $_GET["zoom-w"];
+        } else {
+            echo "10";
+        }
+        ?>px;
         height:100%;
         float:right;
         bottom:0px;
@@ -86,6 +92,7 @@
     <?php
     if (!isset($_GET["inpage"])) echo '<p><hr></p>';
     $yashisitestatus = explode("\n", file_get_contents("yashisitestatus.txt"));
+    $yashisitestatus = array_reverse($yashisitestatus);
     $data = array();
     $dataname = array();
     for($i=0; $i<count($yashisitestatus); $i++) {
@@ -125,8 +132,8 @@
                 $ioks="负载较高";
                 $spanclass="stattbitem_yellow";
             }
-            if (isset($_GET["zoom"]) && intval($_GET["zoom"]) <= 10000 && intval($_GET["zoom"]) > 1) {
-                $zoom=intval($_GET["zoom"]);
+            if (isset($_GET["zoom-h"]) && intval($_GET["zoom-h"]) <= 10000 && intval($_GET["zoom-h"]) >= 1) {
+                $zoom=intval($_GET["zoom-h"]);
             }
             $itemheight = $tableheight-$iping*$zoom;
             if (($tableheight-$itemheight > $tableheight) || ($iok != "OK" && $iping == "0")) {
