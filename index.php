@@ -24,8 +24,8 @@
     }
     .stattbitem {
         width:<?php
-        if (isset($_GET["zoom-w"]) && intval($_GET["zoom-w"]) >= 1 && intval($_GET["zoom-w"]) <= 1024) {
-            echo $_GET["zoom-w"];
+        if (isset($_GET["w"]) && intval($_GET["w"]) >= 1 && intval($_GET["w"]) <= 1024) {
+            echo $_GET["w"];
         } else {
             echo "10";
         }
@@ -34,6 +34,7 @@
         float:right;
         bottom:0px;
         border:1px solid #F0F8FF;
+        cursor:crosshair;
     }
     .stattbitemi {
         background-color:#F0F8FF;
@@ -69,6 +70,30 @@
         background:-o-linear-gradient(bottom, #FF6666, #CC0000);
         background:linear-gradient(bottom, #FF6666, #CC0000);
     }
+    #tbcontrolbox {
+        position:fixed;
+        text-align: center;
+        width: 10%;
+        height: auto;
+        left: 0;
+        top: 45%;
+    }
+    #tbcontrolbox button {
+        border-left: 1px solid #00CCFF;
+        border-right: 1px solid #00CCFF;
+        background-color:#F0F8FF;
+        width: 32px;
+        height: 32px;
+        cursor:pointer;
+    }
+    #tbcontrolboxb2 {
+        border-top: none;
+        border-bottom: 1px solid #00CCFF;
+    }
+    #tbcontrolboxb1 {
+        border-top: 1px solid #00CCFF;
+        border-bottom: none;
+    }
     #statfoot {
         width:100%;
         text-align:center;
@@ -84,8 +109,24 @@
         } else if (isshow == 0) {
             ndiv.style.border="1px solid #F0F8FF";
         }
-        if (isshow != 0) {
-            ndivt.innerHTML=spantitle;
+        if (isshow != 0 && ndivt != null) {
+            ndivt.innerHTML = spantitle;
+        }
+    }
+    function yashiserverstatus_zoomw(zoomin) {
+        var stattbitems = document.getElementsByClassName("stattbitem");
+        if (stattbitems && stattbitems.length > 0) {
+            var newwidth = parseInt(stattbitems[1].offsetWidth);
+            newwidth = newwidth + zoomin - 2;
+            if (newwidth >= 1 && newwidth <= 1024) {
+                for (nstattbitem in stattbitems)
+                {
+                    var nitem = document.getElementById(nstattbitem);
+                    if (nitem != null) {
+                        nitem.style.width = newwidth + "px";
+                    }
+                }
+            }
         }
     }
     </script>
@@ -103,7 +144,7 @@
                 $nowdata[count($nowdata)] = [$nowinfo[0],$nowinfo[3],$nowinfo[4]];
                 $data[$nowinfo[1]] = $nowdata;
                 $dataname[$nowinfo[1]] = $nowinfo[2];
-            } else {
+            } else if (isset($nowinfo[4])){
                 $nowdata = [[$nowinfo[0],$nowinfo[3],$nowinfo[4]]];
                 $data[$nowinfo[1]] = $nowdata;
                 $dataname[$nowinfo[1]] = $nowinfo[2];
@@ -132,8 +173,8 @@
                 $ioks="负载较高";
                 $spanclass="stattbitem_yellow";
             }
-            if (isset($_GET["zoom-h"]) && intval($_GET["zoom-h"]) <= 10000 && intval($_GET["zoom-h"]) >= 1) {
-                $zoom=intval($_GET["zoom-h"]);
+            if (isset($_GET["h"]) && intval($_GET["h"]) <= 10000 && intval($_GET["h"]) >= 1) {
+                $zoom=intval($_GET["h"]);
             }
             $itemheight = $tableheight-$iping*$zoom;
             if (($tableheight-$itemheight > $tableheight) || ($iok != "OK" && $iping == "0")) {
@@ -148,6 +189,10 @@
     }
     if (!isset($_GET["inpage"])) echo '<p><hr></p>';
     ?>
+    <div id="tbcontrolbox">
+    <button id="tbcontrolboxb1" type="button" onclick="yashiserverstatus_zoomw(1);">＋</button><br>
+    <button id="tbcontrolboxb2" type="button" onclick="yashiserverstatus_zoomw(-1);">－</button>
+    </div>
     <div id="statfoot"><p><a href="https://github.com/kagurazakayashi/NyarukoStatus" target="_blank">NyarukoStatus</a> © 神楽坂雅詩 2017</p></div>
     <?php if (!isset($_GET["inpage"])) {
         echo "</body></html>";
