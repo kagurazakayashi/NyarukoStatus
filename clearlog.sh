@@ -4,4 +4,4 @@ cd "/mnt/data/yashisitestatus" #脚本所在的文件夹
 infofile="/mnt/www/yashisitestatus.txt" #index.php 所在的文件夹
 #
 echo > $infofile
-rm -f wstat*.log
+rm -f yastat*.log
