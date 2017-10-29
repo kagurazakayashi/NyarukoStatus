@@ -4,8 +4,10 @@
 - 附带的 php 脚本可以将服务器近期的运行情况可视化返回。
 
 ## 演示 Demo
-- [https://www.yoooooooooo.com/yashi/?page_id=5408](https://www.yoooooooooo.com/yashi/?page_id=5408)
-- [https://www.yoooooooooo.com/status](https://www.yoooooooooo.com/status)
+- 实装 DEMO:
+  - [https://www.yoooooooooo.com/yashi/?page_id=5408](https://www.yoooooooooo.com/yashi/?page_id=5408)
+- 可加参数 DEMO:
+  - [https://www.yoooooooooo.com/status](https://www.yoooooooooo.com/status)
 - 该程序在下面的环境中测试通过：
   - Linux 3.10.0-693.2.2.el7.x86_64 (CentOS 7), bash 4.2.46, Nginx 1.12.1
 
@@ -52,7 +54,8 @@
 - 在工作一段时间后，可以打开 `yashisitestatus.txt` 文件查看日志。
 - 挂在网页服务上，访问和它在一起的 php 文件，可以呈现运行状态图表。
   - PHP 可用参数 (GET方式提交，例如 `/index.php?h=100&w=10` )：
-    - `inpage` ：不插入html开始结束标记，用于其他网页嵌入。
+    - `inpage` ：不插入 html 开始结束标记，用于其他网页嵌入。
+    - `c=500` ：图表显示的数据数量，默认值为 `status.sh` 的最大保存数据量，可以改为 1 - 10000 之间。
     - `h=500` ：图表单位柱形的高度容量，默认值 500，可以改为 10000 - 1 之间。
     - `w=10` ：图标单位柱形的宽度像素，默认值 10，可以改为 1 - 1024 之间。
 - 查看每次的检查结果信息，以及错误详细信息：

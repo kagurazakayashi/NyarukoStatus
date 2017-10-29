@@ -159,29 +159,33 @@
         }
         $tableid="stattb_".$key;
         echo '<div class="hostname"><h2>'.$dataname[$key].'</h2></div><div id="'.$tableid.'" class="stattb" style="height:'.$tableheight.'px;">';
-        for($i=0; $i<count($val); $i++) {
+        $showcount = count($val);
+        if (isset($_GET["c"]) && intval($_GET["c"]) <= 10000 && intval($_GET["c"]) >= 0 && $showcount <= count($val)) {
+            $showcount = intval($_GET["c"]);
+        }
+        for($i = 0; $i < $showcount; $i++) {
             $nowinfoarr = $val[$i];
-            $itime=$nowinfoarr[0];
-            $iping=floatval($nowinfoarr[1]);
-            $iok=$nowinfoarr[2];
-            $spanclass="stattbitem_green";
-            $ioks="正常服务";
+            $itime = $nowinfoarr[0];
+            $iping = floatval($nowinfoarr[1]);
+            $iok = $nowinfoarr[2];
+            $spanclass = "stattbitem_green";
+            $ioks = "正常服务";
             if ($iok != "OK") {
-                $ioks="服务中断";
-                $spanclass="stattbitem_red";
+                $ioks = "服务中断";
+                $spanclass = "stattbitem_red";
             } else if ($iping >= 0.5) {
-                $ioks="负载较高";
-                $spanclass="stattbitem_yellow";
+                $ioks = "负载较高";
+                $spanclass = "stattbitem_yellow";
             }
             if (isset($_GET["h"]) && intval($_GET["h"]) <= 10000 && intval($_GET["h"]) >= 1) {
-                $zoom=intval($_GET["h"]);
+                $zoom = intval($_GET["h"]);
             }
             $itemheight = $tableheight-$iping*$zoom;
-            if (($tableheight-$itemheight > $tableheight) || ($iok != "OK" && $iping == "0")) {
+            if (($tableheight - $itemheight > $tableheight) || ($iok != "OK" && $iping == "0")) {
                 $itemheight = 0;
             }
-            $spantitle="检测时间：".$itime."，响应时间：".$iping."s，".$ioks;
-            $spanid=$key.$itime;
+            $spantitle = "检测时间：".$itime."，响应时间：".$iping."s，".$ioks;
+            $spanid = $key.$itime;
             $mjsc = "'".$spanid."','".$tableid."','".$spantitle."'";
             echo '<span class="stattbitem '.$spanclass.'" id="'.$spanid.'" title="'.$spantitle.'" onmouseover="yashiserverstatus_datainfo(1,'.$mjsc.');" onmouseout="yashiserverstatus_datainfo(0,'.$mjsc.');" onclick="yashiserverstatus_datainfo(2,'.$mjsc.');"><div class="stattbitemi" id="'.$spanid.'i" style="height:'.$itemheight.'px"></div></span>';
         }
